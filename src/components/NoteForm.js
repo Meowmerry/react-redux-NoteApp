@@ -135,7 +135,6 @@ class NoteForm extends React.Component {
                   Add Note
                 </button>
               </form>{" "}
-
             </div>
           </div>
         </div>
