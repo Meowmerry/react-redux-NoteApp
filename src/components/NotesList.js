@@ -2,26 +2,26 @@ import React from "react";
 import { connect } from "react-redux";
 import { removeNote, showActive, showInactive } from "../redux/actions/actions";
 import { Card, Button, Icon, Col, Row } from "antd";
-import moment from 'moment'
+import moment from "moment";
 
 class NotesList extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       searchTitle: "",
-      searchContent:"",
-      searchCategories:""
-       };
+      searchContent: "",
+      searchCategories: "",
+    };
   }
-  handleDelete = id => () => {
+  handleDelete = (id) => () => {
     this.props.removeNewNote(id); // removeNewNote มาจากด้านล่าง action creatore กลายเป็น props ของ component
   };
-  handleSearchTitle = e => {
+  handleSearchTitle = (e) => {
     // console.log(e.target.value)
     this.setState({ searchTitle: e.target.value });
   };
 
-  handleSearchContent =async e => {
+  handleSearchContent = async (e) => {
     // console.log(e.target.value)
     await this.setState({ searchContent: e.target.value });
     // console.log(this.state.searchContent)
@@ -33,24 +33,28 @@ class NotesList extends React.Component {
 
   render() {
     let visibility = this.props.visibility;
-    let notes = this.props.notes.filter(note => note.status === visibility);
+    let notes = this.props.notes.filter((note) => note.status === visibility);
     // console.log({ notes, visibility });
     const searchTitle = this.state.searchTitle;
-    notes = notes.filter( x => { if (searchTitle === '') {
-      return true
-    } else {
-      return x.title.toLocaleLowerCase()
-      .includes(searchTitle.toLocaleLowerCase())
+    notes = notes.filter((x) => {
+      if (searchTitle === "") {
+        return true;
+      } else {
+        return x.title
+          .toLocaleLowerCase()
+          .includes(searchTitle.toLocaleLowerCase());
       }
-    })
+    });
     const searchContent = this.state.searchContent;
-    notes = notes.filter( x => { if (searchContent === '') {
-      return true
-    } else {
-      return x.content.toLocaleLowerCase()
-      .includes(searchContent.toLocaleLowerCase())
+    notes = notes.filter((x) => {
+      if (searchContent === "") {
+        return true;
+      } else {
+        return x.content
+          .toLocaleLowerCase()
+          .includes(searchContent.toLocaleLowerCase());
       }
-    })
+    });
 
     // const searchCategories = this.state.searchCategories;
     // notes = notes.filter( x => { if (searchCategories === '') {
@@ -68,7 +72,7 @@ class NotesList extends React.Component {
           style={{
             display: "flex",
             justifyContent: "space-around",
-            backgroundColor: "#fad0c3"
+            backgroundColor: "#fad0c3",
           }}
         >
           <br />
@@ -130,7 +134,7 @@ class NotesList extends React.Component {
           <div
             style={{
               display: "flex",
-              justifyContent: "space-around"
+              justifyContent: "space-around",
             }}
           >
             <button
@@ -149,31 +153,34 @@ class NotesList extends React.Component {
             </button>
           </div>
           <br />{" "}
-       
           <div
-            style={{ background: "#ECECEC", padding: "30px", width: "100%", }}
-                
-          > 
-            {notes.map(note => (
-                
+            style={{ background: "#ECECEC", padding: "30px", width: "100%" }}
+          >
+            {notes.map((note) => (
               <Card
-                style={{ width: "100%", backgroundColor: "#edaa95",}}
+                style={{ width: "100%", backgroundColor: "#edaa95" }}
                 key={note.id}
-                title={<b><h6> Title : <br/> {note.title}</h6></b>}
+                title={
+                  <b>
+                    <h6>
+                      {" "}
+                      Title : <br /> {note.title}
+                    </h6>
+                  </b>
+                }
                 extra={
                   <Button type="danger" onClick={this.handleDelete(note.id)}>
                     <Icon type="delete" />
                   </Button>
                 }
               >
-                
                 <div
                   style={{
                     backgroundColor: "#d4c4fb",
                     marginTop: "10px",
                     paddingTop: "10px",
                     borderRadius: "2em 1em 4em / 0.5em 3em",
-                    border: " 1px solid black"
+                    border: " 1px solid black",
                   }}
                 >
                   <h6>Content</h6>
@@ -187,7 +194,7 @@ class NotesList extends React.Component {
                     marginTop: "10px",
                     paddingTop: "10px",
                     borderRadius: "2em 1em 4em / 0.5em 3em",
-                    border: " 1px solid black"
+                    border: " 1px solid black",
                   }}
                 >
                   <h6>Category</h6>
@@ -195,7 +202,6 @@ class NotesList extends React.Component {
                   <br />
                   {/* {note.date.toString()} */}
                   {moment(note.date).format("DD/MM/YYYY HH:mm a")}
-                  
                 </div>
               </Card>
             ))}
@@ -207,18 +213,16 @@ class NotesList extends React.Component {
 }
 
 // ทำให้ state ใน store กลายเป็น props ของ component
-const mapStateToProps = function(state) {
-  return {
-    notes: state.notes,
-    visibility: state.visibility
-  };
-};
+const mapStateToProps = (state) => ({
+  notes: state.notes,
+  visibility: state.visibility,
+});
 
 // ทำให้ action creatore กลายเป็น props ของ component
 const mapDispatchToProps = {
   removeNewNote: removeNote, // removeNote มาจาก action.js
   showActiveNotes: showActive,
-  showInactiveNotes: showInactive
+  showInactiveNotes: showInactive,
 };
-
+// will export connect function and passed in mapStateToProps, mapDispatchToProps and other function will passed in the component we want to connect
 export default connect(mapStateToProps, mapDispatchToProps)(NotesList);
