@@ -90,7 +90,7 @@ class NotesList extends React.Component {
                 >
                   <input
                     onChange={this.handleSearchTitle}
-                    class="form-control"
+                    className="form-control"
                     id="myInput"
                     type="text"
                     placeholder="Search.."
@@ -105,7 +105,7 @@ class NotesList extends React.Component {
                 >
                   <input
                     onChange={this.handleSearchContent}
-                    class="form-control"
+                    className="form-control"
                     id="myInput"
                     type="text"
                     placeholder="Search.."
@@ -120,7 +120,7 @@ class NotesList extends React.Component {
                   style={{ backgroundColor: "#c5b3e5" }}
                 >
                   <input
-                    class="form-control"
+                    className="form-control"
                     id="myInput"
                     type="text"
                     placeholder="Search.."
@@ -139,14 +139,14 @@ class NotesList extends React.Component {
           >
             <button
               type="button"
-              class="btn btn-info"
+              className="btn btn-info"
               onClick={this.props.showActiveNotes}
             >
               Show Active Notes
             </button>
             <button
               type="button"
-              class="btn btn-primary"
+              className="btn btn-primary"
               onClick={this.props.showInactiveNotes}
             >
               Show Deleted Notes

@@ -43,7 +43,7 @@ class NoteForm extends React.Component {
     let content = this.state.content;
     let tag = this.state.tag;
     let date = this.state.date;
-     (title, content, tag, date); // addNewNote มาจากด้านล่าง action creatore กลายเป็น props ของ component
+    this.props.addNewNote(title, content, tag, date);// addNewNote มาจากด้านล่าง action creatore กลายเป็น props ของ component
     this.setState({ title: "", content: "", tag: "", date: null });
   };
 
